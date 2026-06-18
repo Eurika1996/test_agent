@@ -1,0 +1,17 @@
+[Unit]
+Description=Requirements Review Agent Web Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/test_agent
+Environment=PATH=/root/test_agent/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/root/test_agent/venv/bin/waitress-serve --host 127.0.0.1 --port 5000 --threads 8 app:app
+Restart=always
+RestartSec=5
+StandardOutput=append:/root/test_agent/logs/app.log
+StandardError=append:/root/test_agent/logs/error.log
+
+[Install]
+WantedBy=multi-user.target
